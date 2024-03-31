@@ -1,7 +1,14 @@
 <html>
 <head><title>Home Page</title></head>
 <body>
-<h1>Hello !</h1>
-<p>This is <span th:text="${welcome1}"> </span></p>
+<h1 th:text="${homePageTitle}"></h1>
+<p>Ethereum current block stats... <span> </span></p>
+
+<p>Current Ethereum Block Number: <span th:text="${blockNum}"> </span></p>
+<p>Current Ethereum Block Hash: <span th:text="${blockHash}"> </span></p>
+<p>Current Ethereum Block TimeStamp: <span th:text="${blockTime}"> </span></p>
+<p>Current Ethereum Block Miner: <span th:text="${blockMiner}"> </span></p>
+<p>Current Ethereum Block Transactions: <span th:text="${blockTrans}"> </span></p>
+
 </body>
 </html>

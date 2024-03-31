@@ -13,7 +13,7 @@ class ChainScrapeApplicationTests {
 
     @Test
     void testScrape() throws Exception {
-        new BlockDataFeed().scrape();
-        Thread.sleep(100000000);
+        new BlockDataFeed().monitor();
+        Thread.sleep(5000); //allow enough time for executor service thread to run
     }
 }

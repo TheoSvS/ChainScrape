@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.concurrent.*;
 
+import com.chain.chainscrape.Provider;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.http.HttpService;
@@ -20,32 +21,31 @@ public class BlockDataFeed {
     }
 
     private static synchronized void init() {
-        // Replace "YOUR_INFURA_URL" with your Infura node URL
-        String INFURA_URL = "-";
+        // Replace "YOUR_INFURA_URL" with your Infura node URL inside chain_infra_api_url.properties
+        String INFURA_URL = Provider.getInfuraURL();
 
         // Connect to the Ethereum node using Web3j
         web3j = Web3j.build(new HttpService(INFURA_URL));
     }
 
-    public void scrape() {
-        //new ScrapperRunnable().run();
+    public static void monitor() {
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new ScrapperRunnable(), 0, 10, TimeUnit.SECONDS);
-
     }
 
+    public static EthBlock.Block  getLatestBlock() throws IOException {
+        long blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
+        // Get the block information
+        EthBlock.Block block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
+        return block;
+    }
 
-    public class ScrapperRunnable implements Runnable {
+    public static class ScrapperRunnable implements Runnable {
 
         @Override
         public void run() {
-            long blockNumber = 0; // Latest block
-            EthBlock.Block block = null;
             try {
-                blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue();
-                // Get the block information
-                block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
-
+                EthBlock.Block block = getLatestBlock();
                 if (block != null) {
                     System.out.println("Current Ethereum Block Number: " + block.getNumber());
                     System.out.println("Block Hash: " + block.getHash());
@@ -55,7 +55,7 @@ public class BlockDataFeed {
                     System.out.println("Block produced by Miner: " + block.getMiner());
                     System.out.println("Number of Transactions: " + block.getTransactions().size());
                 } else {
-                    System.out.println("Block not found for number: " + blockNumber);
+                    System.out.println("Block couldn't be found for number");
                 }
             } catch (Exception e) { //intercept all exceptions, if a runnable within executor service fails, it won't print in default console by default
                 e.printStackTrace();
