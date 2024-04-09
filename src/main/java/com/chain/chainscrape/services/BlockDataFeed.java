@@ -15,6 +15,7 @@ import org.web3j.protocol.core.methods.response.EthBlock;
 
 public class BlockDataFeed {
     private static Web3j web3j;
+    private static EthBlock.Block block;
 
     static {
         init();
@@ -26,6 +27,12 @@ public class BlockDataFeed {
 
         // Connect to the Ethereum node using Web3j
         web3j = Web3j.build(new HttpService(INFURA_URL));
+        try {
+            retrieveBlockFromBlockchain(); //initialize the block with latest data to show on startup
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        monitor();
     }
 
     public static void monitor() {
@@ -33,11 +40,16 @@ public class BlockDataFeed {
         scheduledExecutorService.scheduleAtFixedRate(new ScrapperRunnable(), 0, 10, TimeUnit.SECONDS);
     }
 
-    public static EthBlock.Block  getLatestBlock() throws IOException {
-        long blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
-        // Get the block information
-        EthBlock.Block block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
+    /** To not exceed our free INFURA Api quota, return the last stored block, and allow the executor service to update it only once every 10 seconds (ethereum new block time)
+     * @return
+     */
+    public static EthBlock.Block getLastRetrievedBlock() {
         return block;
+    }
+
+    private static void retrieveBlockFromBlockchain() throws IOException {
+        long blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
+        block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
     }
 
     public static class ScrapperRunnable implements Runnable {
@@ -45,7 +57,7 @@ public class BlockDataFeed {
         @Override
         public void run() {
             try {
-                EthBlock.Block block = getLatestBlock();
+               BlockDataFeed.retrieveBlockFromBlockchain();
                 if (block != null) {
                     System.out.println("Current Ethereum Block Number: " + block.getNumber());
                     System.out.println("Block Hash: " + block.getHash());

@@ -20,7 +20,7 @@ public class HomeWithHtmlController {
 
     @GetMapping("/home")
     public String homePage(Model model) throws IOException {
-        EthBlock.Block latestBlock = BlockDataFeed.getLatestBlock();
+        EthBlock.Block latestBlock = BlockDataFeed.getLastRetrievedBlock();
         long timestamp = latestBlock.getTimestamp().longValue();
         String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).toString();
 
