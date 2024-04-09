@@ -13,7 +13,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.core.methods.response.EthBlock;
 
-public class BlockDataFeed {
+public class BlockDataService {
     private static Web3j web3j;
     private static EthBlock.Block block;
 
@@ -27,11 +27,6 @@ public class BlockDataFeed {
 
         // Connect to the Ethereum node using Web3j
         web3j = Web3j.build(new HttpService(INFURA_URL));
-        try {
-            retrieveBlockFromBlockchain(); //initialize the block with latest data to show on startup
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         monitor();
     }
 
@@ -44,12 +39,18 @@ public class BlockDataFeed {
      * @return
      */
     public static EthBlock.Block getLastRetrievedBlock() {
-        return block;
+        try {
+            return block!=null?block:retrieveLatestBlockFromBlockchain();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private static void retrieveBlockFromBlockchain() throws IOException {
+    private static EthBlock.Block retrieveLatestBlockFromBlockchain() throws IOException {
         long blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
         block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
+        return block;
     }
 
     public static class ScrapperRunnable implements Runnable {
@@ -57,7 +58,7 @@ public class BlockDataFeed {
         @Override
         public void run() {
             try {
-               BlockDataFeed.retrieveBlockFromBlockchain();
+               EthBlock.Block block = BlockDataService.retrieveLatestBlockFromBlockchain();
                 if (block != null) {
                     System.out.println("Current Ethereum Block Number: " + block.getNumber());
                     System.out.println("Block Hash: " + block.getHash());

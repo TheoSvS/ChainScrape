@@ -1,13 +1,11 @@
 package com.chain.chainscrape.controllers;
 
-import com.chain.chainscrape.services.BlockDataFeed;
+import com.chain.chainscrape.services.BlockDataService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.web3j.protocol.core.methods.response.EthBlock;
-
-import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -19,8 +17,8 @@ public class HomeWithHtmlController {
     String appTitle;
 
     @GetMapping("/home")
-    public String homePage(Model model) throws IOException {
-        EthBlock.Block latestBlock = BlockDataFeed.getLastRetrievedBlock();
+    public String homePage(Model model) {
+        EthBlock.Block latestBlock = BlockDataService.getLastRetrievedBlock();
         long timestamp = latestBlock.getTimestamp().longValue();
         String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).toString();
 
