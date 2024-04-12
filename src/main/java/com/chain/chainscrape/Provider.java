@@ -9,7 +9,7 @@ public class Provider {
     static {
         readProperties();
     }
-    static String  INFURA_URL ;
+    private static String  INFURA_URL ;
 
     private static synchronized void readProperties() {
         Properties prop = new Properties();
@@ -26,8 +26,7 @@ public class Provider {
 
             // Print property values
             System.out.println("Infura URL: " + INFURA_URL);
-        } catch (
-                IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
             if (input != null) {
