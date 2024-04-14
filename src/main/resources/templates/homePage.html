@@ -1,7 +1,12 @@
 <html><meta http-equiv="refresh" content="2">
-<head><title>Home Page</title></head>
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/ethbackground.css}" />
+</head>
 <body>
 <h1 th:text="${homePageTitle}"></h1>
+<div class="eth-background"></div>
+
 <p>Ethereum current block stats... <span> </span></p>
 
 <p>Current Ethereum Block Number: <span th:text="${blockNum}"> </span></p>

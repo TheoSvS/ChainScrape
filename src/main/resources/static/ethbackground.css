@@ -1,0 +1,13 @@
+.eth-background {
+/*    background-image: url('/images/ethblaze.gif');
+    background-size: cover; *//* Adjust as needed (cover, contain, etc.) *//*
+    background-position: center; *//* Adjust as needed (center, top left, etc.) *//*
+    background-repeat: no-repeat; *//* Prevent tiling *//*
+    height: 100vh; *//* Set height to 100% viewport height *//*
+    width: 100vw; *//* Set width to 100% viewport width */
+}
+
+    body {
+        background-color: black;
+        color: green;
+    }
