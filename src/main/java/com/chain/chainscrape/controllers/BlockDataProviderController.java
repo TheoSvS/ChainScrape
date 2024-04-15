@@ -16,7 +16,7 @@ import org.web3j.protocol.core.methods.response.EthBlock;
 @RequestMapping(value="/api/v1")
 public class BlockDataProviderController {
 
-    @GetMapping(value="/getblockdata")
+    @GetMapping(value="/blockdata")
     public ResponseEntity<BlockDataResponse> getBlockData(){
         EthBlock.Block block = BlockDataService.getLastRetrievedBlock();
         if(block!=null){
