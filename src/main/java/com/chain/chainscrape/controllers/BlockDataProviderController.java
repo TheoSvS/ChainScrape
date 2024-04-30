@@ -15,10 +15,15 @@ import org.web3j.protocol.core.methods.response.EthBlock;
 @CrossOrigin(origins = " * ", allowedHeaders = " * ")
 @RequestMapping(value="/api/v1")
 public class BlockDataProviderController {
+    private final BlockDataService blockDataService;
+
+    public BlockDataProviderController(BlockDataService blockDataService) {
+        this.blockDataService = blockDataService;
+    }
 
     @GetMapping(value="/blockdata")
     public ResponseEntity<BlockDataResponse> getBlockData(){
-        EthBlock.Block block = BlockDataService.getLastRetrievedBlock();
+        EthBlock.Block block = blockDataService.getLastRetrievedBlockData();
         if(block!=null){
             return ResponseEntity.ok(new BlockDataResponse("Block retrieved!",  block));
         }

@@ -1,38 +1,25 @@
 package com.chain.chainscrape.services;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.concurrent.*;
 
-import com.chain.chainscrape.Provider;
+import java.util.concurrent.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.http.HttpService;
+import org.springframework.stereotype.Component;
 import org.web3j.protocol.core.methods.response.EthBlock;
 
 @Slf4j
+@Component
 public class BlockDataService {
-    private static Web3j web3j;
-    private static EthBlock.Block block;
+    private final Scrapper scrapperRunnable;
 
-    static {
-        init();
-    }
-
-    private static synchronized void init() {
-        // Replace "YOUR_INFURA_URL" with your Infura node URL inside chain_infra_api_url.properties
-        String INFURA_URL = Provider.getInfuraURL();
-
-        // Connect to the Ethereum node using Web3j
-        web3j = Web3j.build(new HttpService(INFURA_URL));
+    public BlockDataService(Scrapper scrapperRunnable) {
+        this.scrapperRunnable = scrapperRunnable;
         monitor();
     }
 
-    public static void monitor() {
+    public void monitor() {
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(new ScrapperRunnable(), 0, 10, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(scrapperRunnable, 0, 10, TimeUnit.SECONDS);
     }
 
     /**
@@ -40,36 +27,13 @@ public class BlockDataService {
      *
      * @return
      */
-    public static EthBlock.Block getLastRetrievedBlock() {
+    public  EthBlock.Block getLastRetrievedBlockData() {
         try {
-            return block != null ? block : retrieveLatestBlockFromBlockchain();
-        } catch (Error | IOException e) {
+            return scrapperRunnable.retrieveLatestCachedData();
+        } catch (Error e) {
             log.error("Block couldn't be retrieved! Did you add your key in chain_infra_api_url.properties?" + System.lineSeparator() + ExceptionUtils.getStackTrace(e));
         }
         return null;
     }
 
-    private static EthBlock.Block retrieveLatestBlockFromBlockchain() throws IOException {
-        long blockNumber = web3j.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
-        block = web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
-        return block;
-    }
-
-    public static class ScrapperRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                EthBlock.Block block = BlockDataService.retrieveLatestBlockFromBlockchain();
-                if (block != null) {
-                    log.info("Current Ethereum Block Number: " + block.getNumber());
-                } else {
-                    log.warn("Block couldn't be retrieved ");
-                }
-            } catch (Error | Exception e) { //intercept all exceptions, if a runnable within executor service fails, it won't print in default console by default
-                log.error(e.getMessage(), ExceptionUtils.getStackTrace(e));
-            }
-        }
-
-    }
 }

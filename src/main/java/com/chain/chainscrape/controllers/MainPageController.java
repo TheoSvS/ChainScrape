@@ -11,14 +11,19 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Controller
-public class HomeWithHtmlController {
+public class MainPageController {
     //wired from application.properties
     @Value("${appTitle}")
     String appTitle;
+    private final BlockDataService blockDataService;
+
+    public MainPageController(BlockDataService blockDataService) {
+        this.blockDataService = blockDataService;
+    }
 
     @GetMapping("/home")
     public String homePage(Model model) {
-        EthBlock.Block latestBlock = BlockDataService.getLastRetrievedBlock();
+        EthBlock.Block latestBlock = blockDataService.getLastRetrievedBlockData();
         long timestamp = latestBlock.getTimestamp().longValue();
         String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).toString();
 
@@ -28,7 +33,10 @@ public class HomeWithHtmlController {
         model.addAttribute("blockTime", timestamp + " (" + dateReadable + ")");
         model.addAttribute("blockMiner", latestBlock.getMiner());
         model.addAttribute("blockTrans", latestBlock.getTransactions().size());
+        double gasFeeGwei = latestBlock.getBaseFeePerGas().doubleValue() / Math.pow(10.0, 9.0);
+        double roundedGasFeeGwei = Math.round(gasFeeGwei * 10.0) / 10.0;
+        model.addAttribute("gasGwei", roundedGasFeeGwei);
 
-        return "homePage"; //refers homePage.html
+        return "homePage";
     }
 }
