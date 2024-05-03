@@ -7,7 +7,54 @@
     width: 100vw;  /*Set width to 100% viewport width */
 }
 
-    body {
-        background-color: rgba(21, 20, 19,1); ;
-        color: green;
-    }
+body {
+    background-color: rgba(21, 20, 19,1);
+    color: green;
+}
+
+.border.border-white.rounded {
+    width: fit-content;
+                padding-left: 10;
+                padding-right: 10;
+                border-width: 12px; /* Adjust border thickness */
+}
+
+@font-face {
+  font-family: 'RetroFont';
+/*  src: url('webfont.eot'); *//* IE9 Compat Modes *//*
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), *//* IE6-IE8 *//*
+       url('webfont.woff2') format('woff2'), *//* Super Modern Browsers *//*
+       url('webfont.woff') format('woff'), *//* Pretty Modern Browsers */
+       /*url('webfont.svg#svgFontName') format('svg');  Legacy iOS */
+       src: local('computer_pixel-7.ttf') format('truetype');
+       font-weight: bold;
+}
+
+.text-left {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+/*.title {
+    font-size: 64px;
+    font-family: RetroFont, sans-serif;
+    margin-bottom: 100px;
+    font-style: normal;
+}*/
+
+.title {
+  font-size: 154px;
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 4;
+  font-style: normal;
+}
+
+.content {
+  font-family: "Jersey 15", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+}
+
+.values-style{
+  color: white; /*replace only the coloring*/
+}

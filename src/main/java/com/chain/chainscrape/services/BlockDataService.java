@@ -2,6 +2,8 @@ package com.chain.chainscrape.services;
 
 
 import java.util.concurrent.*;
+
+import com.chain.chainscrape.model.EthData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
@@ -22,12 +24,17 @@ public class BlockDataService {
         scheduledExecutorService.scheduleAtFixedRate(scrapperRunnable, 0, 10, TimeUnit.SECONDS);
     }
 
+
+    public EthData getLatestEthData() {
+        return new EthData(getLastRetrievedBlockData(), null);
+    }
+
     /**
      * To not exceed our free INFURA Api quota, return the last stored block, and allow the executor service to update it only once every 10 seconds (ethereum new block time)
      *
      * @return
      */
-    public  EthBlock.Block getLastRetrievedBlockData() {
+    private EthBlock.Block getLastRetrievedBlockData() {
         try {
             return scrapperRunnable.retrieveLatestCachedData();
         } catch (Error e) {

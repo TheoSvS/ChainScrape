@@ -18,8 +18,8 @@ import java.math.BigInteger;
 public class Scrapper implements Runnable {
     private final Web3j web3jInfura;
     private final Web3j web3jAlchemy;
-
     private volatile EthBlock.Block latestCachedBlock;
+
     protected Scrapper(Provider provider) {
         web3jInfura = Web3j.build(new HttpService(provider.getINFURA_URL()));
         web3jAlchemy = Web3j.build(new HttpService(provider.getALCHEMY_URL()));
@@ -54,7 +54,7 @@ public class Scrapper implements Runnable {
      */
     protected EthBlock.Block retrieveLatestCachedData(){
         try {
-            return latestCachedBlock != null ? latestCachedBlock : this.retrieveLatestBlockData();
+            return latestCachedBlock != null ? latestCachedBlock : retrieveLatestBlockData();
         } catch (Error | IOException e) {
             log.error("Block couldn't be retrieved! Did you add your key in chain_infra_api_url.properties?" + System.lineSeparator() + ExceptionUtils.getStackTrace(e));
         }

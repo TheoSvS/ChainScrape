@@ -1,6 +1,7 @@
 package com.chain.chainscrape;
 
-import com.chain.chainscrape.controllers.MainPageController;
+import com.chain.chainscrape.controllers.EthDataViewController;
+import com.chain.chainscrape.model.EthData;
 import com.chain.chainscrape.services.BlockDataService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.web3j.protocol.core.methods.response.EthBlock;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class MainPageControllerTest {
+public class EthDataViewControllerTest {
 
     @Mock
     private BlockDataService mockBlockDataService = Mockito.mock(BlockDataService.class);
 
     @InjectMocks
-    private MainPageController mainPageController;
+    private EthDataViewController ethDataViewController;
 
     @Test
     public void testHomePage_WithBlockData() {
@@ -42,11 +44,11 @@ public class MainPageControllerTest {
         mockBlock.setBaseFeePerGas(BigInteger.valueOf(1000000000).toString()); // 1000000000 wei
 
         // Mock BlockDataService behavior
-        Mockito.when(mockBlockDataService.getLastRetrievedBlockData()).thenReturn(mockBlock);
+        Mockito.when(mockBlockDataService.getLatestEthData()).thenReturn(new EthData(mockBlock, BigDecimal.valueOf(9999.99)));
 
         // Execute the controller method
         Model model = new ExtendedModelMap();
-        String viewName = mainPageController.homePage(model);
+        String viewName = ethDataViewController.homePage(model);
 
         // Assertions
         assertEquals("homePage", viewName);
@@ -57,5 +59,6 @@ public class MainPageControllerTest {
         assertEquals("0xminerAddress", modelAttributes.get("blockMiner"));
         assertEquals(2, modelAttributes.get("blockTrans"));
         assertEquals(1.0, modelAttributes.get("gasGwei")); // 1000000000 wei = 1 Gwei
+        assertEquals(BigDecimal.valueOf(9999.99), modelAttributes.get("usdPrice")); // 1000000000 wei = 1 Gwei
     }
 }

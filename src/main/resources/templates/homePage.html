@@ -1,19 +1,32 @@
-<html><meta http-equiv="refresh" content="2.73">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta http-equiv="refresh" content="2.73">
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/ethbackground.css}" />
+    <script src="@{/static/htmx.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Micro+5+Charted&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/ethbackground.css}"/>
+    <script src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
 </head>
+
 <body class="eth-background">
-<h1 th:text="${homePageTitle}"></h1>
+<div class="container text-left">
+    <h1 class="title" th:text="${homePageTitle}"></h1>
 
-<p>Ethereum current block stats... <span> </span></p>
+    <p class="content" style="font-weight: bold; font-size: 45px;"> Ethereum current block stats... <span> </span></p>
 
-<p>Current Ethereum Block Number: <span th:text="${blockNum}"> </span></p>
-<p>Current Ethereum Block Hash: <span th:text="${blockHash}"> </span></p>
-<p>Current Ethereum Block TimeStamp: <span th:text="${blockTime}"> </span></p>
-<p>Current Ethereum Block Miner: <span th:text="${blockMiner}"> </span></p>
-<p>Current Ethereum Block Transactions: <span th:text="${blockTrans}"> </span></p>
-<p>Current TransactionGas Fee: <span th:text="${gasGwei}"> </span></p>
+    <p class="content border border-white rounded">Last Block Number: <span th:text="${blockNum}" class="values-style"> </span></p>
+    <p class="content border border-white rounded">Last Block Hash: <span th:text="${blockHash}" class="values-style"> </span></p>
+    <p class="content border border-white rounded">Last Block TimeStamp: <span th:text="${blockTime}" class="values-style"> </span></p>
+    <p class="content border border-white rounded">Last Block Miner: <span th:text="${blockMiner}" class="values-style"> </span></p>
+    <p class="content border border-white rounded">Last Block Transactions: <span th:text="${blockTrans}" class="values-style"> </span></p>
+    <p class="content border border-white rounded">Last Transaction Gas Fee: <span th:text="${gasGwei + ' gwei'}" class="values-style"></span></p>
+    <p class="content border border-white rounded" th:if="${usdPrice}">Last Ethereum price in USD: <span th:text="*{usdPrice}" class="values-style"> </span></p>
+    <p class="content border border-white rounded" th:unless="${usdPrice}">Last Ethereum price in USD: <span th:text="'Not Available'" class="values-style"></span></p>
 
+</div>
 </body>
 </html>
