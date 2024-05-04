@@ -22,12 +22,12 @@ public class BlockDataResponse extends Response{
 
     public BlockDataResponse(String msg, EthData ethData) {
         super(msg);
-        String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(ethData.block().getTimestamp().longValue()), ZoneId.systemDefault()).toString();
-        this.blockNum = ethData.block().getNumber();
-        this.blockHash = ethData.block().getHash();
-        this.time = ethData.block().getTimestamp() + " (" + dateReadable + ")";
-        this. miner = ethData.block().getMiner();
-        this.transactions = ethData.block().getTransactions().size();
-        this.usdPrice = ethData.usdPrice();
+        String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(ethData.getBlock().getTimestamp().longValue()), ZoneId.systemDefault()).toString();
+        this.blockNum = ethData.getBlock().getNumber();
+        this.blockHash = ethData.getBlock().getHash();
+        this.time = ethData.getBlock().getTimestamp() + " (" + dateReadable + ")";
+        this. miner = ethData.getBlock().getMiner();
+        this.transactions = ethData.getBlock().getTransactions().size();
+        this.usdPrice = ethData.getAssetPrice().price();
     }
 }

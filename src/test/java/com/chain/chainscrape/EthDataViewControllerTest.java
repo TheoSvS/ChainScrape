@@ -1,7 +1,9 @@
 package com.chain.chainscrape;
 
 import com.chain.chainscrape.controllers.EthDataViewController;
+import com.chain.chainscrape.model.EPriceUnit;
 import com.chain.chainscrape.model.EthData;
+import com.chain.chainscrape.model.Price;
 import com.chain.chainscrape.services.BlockDataService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,11 +29,15 @@ public class EthDataViewControllerTest {
     @Mock
     private BlockDataService mockBlockDataService = Mockito.mock(BlockDataService.class);
 
+    @Mock
+    private AppConfig mockAppConfig;
+
     @InjectMocks
     private EthDataViewController ethDataViewController;
 
     @Test
     public void testHomePage_WithBlockData() {
+
         // Mock Block Data
         EthBlock.Block mockBlock = new EthBlock.Block();
         mockBlock.setNumber("12345");
@@ -44,7 +50,7 @@ public class EthDataViewControllerTest {
         mockBlock.setBaseFeePerGas(BigInteger.valueOf(1000000000).toString()); // 1000000000 wei
 
         // Mock BlockDataService behavior
-        Mockito.when(mockBlockDataService.getLatestEthData()).thenReturn(new EthData(mockBlock, BigDecimal.valueOf(9999.99)));
+        Mockito.when(mockBlockDataService.getLatestEthData()).thenReturn(new EthData(mockBlock, new Price(BigDecimal.valueOf(9999.99), EPriceUnit.USD)));
 
         // Execute the controller method
         Model model = new ExtendedModelMap();
@@ -59,6 +65,6 @@ public class EthDataViewControllerTest {
         assertEquals("0xminerAddress", modelAttributes.get("blockMiner"));
         assertEquals(2, modelAttributes.get("blockTrans"));
         assertEquals(1.0, modelAttributes.get("gasGwei")); // 1000000000 wei = 1 Gwei
-        assertEquals(BigDecimal.valueOf(9999.99), modelAttributes.get("usdPrice")); // 1000000000 wei = 1 Gwei
+        assertEquals(BigDecimal.valueOf(9999.99), modelAttributes.get("usdPrice"));
     }
 }
