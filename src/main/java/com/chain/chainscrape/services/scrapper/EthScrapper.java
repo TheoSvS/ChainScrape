@@ -1,6 +1,7 @@
 package com.chain.chainscrape.services.scrapper;
 
 import com.chain.chainscrape.Provider;
+import com.chain.chainscrape.Utils;
 import com.chain.chainscrape.model.EPriceUnit;
 import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.model.Price;
@@ -21,7 +22,6 @@ import org.web3j.protocol.http.HttpService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +92,7 @@ public class EthScrapper extends AbstractScrapper<EthData, EthBlock.Block> {
         Function function = new Function(
                 priceFeedFunctionName,
                 List.of(),  // Solidity Types in smart contract functions. Our price feed call doesn't need input as per the contract
-                List.of(new TypeReference<Int256>(){}));
+                List.of(new TypeReference<Int256>(){})); //The output Types of the response
 
         String encodedFunction = FunctionEncoder.encode(function);
         EthCall response = web3jRPCservice.ethCall(
@@ -100,7 +100,7 @@ public class EthScrapper extends AbstractScrapper<EthData, EthBlock.Block> {
      .sendAsync().get();
 
         BigInteger price8Decimals = (BigInteger) FunctionReturnDecoder.decode(response.getValue(), function.getOutputParameters()).get(0).getValue();
-        BigDecimal price = new BigDecimal(price8Decimals).divide(BigDecimal.valueOf(100000000),2, RoundingMode.HALF_UP);
+        BigDecimal price = Utils.ethDecToBigDecimal(price8Decimals,8,2);
         return new Price(price, EPriceUnit.USD);
     }
 
