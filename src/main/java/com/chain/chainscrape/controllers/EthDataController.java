@@ -1,7 +1,7 @@
 package com.chain.chainscrape.controllers;
 
 import com.chain.chainscrape.Responses.BlockDataResponse;
-import com.chain.chainscrape.model.EthData;
+import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.services.BlockDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

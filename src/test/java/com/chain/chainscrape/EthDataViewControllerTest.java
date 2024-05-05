@@ -2,7 +2,7 @@ package com.chain.chainscrape;
 
 import com.chain.chainscrape.controllers.EthDataViewController;
 import com.chain.chainscrape.model.EPriceUnit;
-import com.chain.chainscrape.model.EthData;
+import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.model.Price;
 import com.chain.chainscrape.services.BlockDataService;
 import org.junit.jupiter.api.Test;

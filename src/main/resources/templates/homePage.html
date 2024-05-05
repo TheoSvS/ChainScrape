@@ -24,7 +24,7 @@
     <p class="content border border-white rounded">Last Block Miner: <span th:text="${blockMiner}" class="values-style"> </span></p>
     <p class="content border border-white rounded">Last Block Transactions: <span th:text="${blockTrans}" class="values-style"> </span></p>
     <p class="content border border-white rounded">Last Transaction Gas Fee: <span th:text="${gasGwei + ' gwei'}" class="values-style"></span></p>
-    <p class="content border border-white rounded" th:if="${usdPrice}">Last Ethereum price in USD: <span th:text="*{usdPrice}" class="values-style"> </span></p>
+    <p class="content border border-white rounded" th:if="${usdPrice}">Last Ethereum price in USD: <span th:text="'$' + *{usdPrice}" class="values-style"> </span></p>
     <p class="content border border-white rounded" th:unless="${usdPrice}">Last Ethereum price in USD: <span th:text="'Not Available'" class="values-style"></span></p>
 
 </div>

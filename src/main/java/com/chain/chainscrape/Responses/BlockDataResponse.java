@@ -1,8 +1,7 @@
 package com.chain.chainscrape.Responses;
 
-import com.chain.chainscrape.model.EthData;
+import com.chain.chainscrape.model.data.EthData;
 import lombok.Data;
-import org.web3j.protocol.core.methods.response.EthBlock;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

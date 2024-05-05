@@ -1,7 +1,7 @@
 package com.chain.chainscrape.controllers;
 
 import com.chain.chainscrape.AppConfig;
-import com.chain.chainscrape.model.EthData;
+import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.services.BlockDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

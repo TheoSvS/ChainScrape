@@ -4,30 +4,31 @@ package com.chain.chainscrape.services;
 import java.util.concurrent.*;
 
 import com.chain.chainscrape.Provider;
-import com.chain.chainscrape.model.EthData;
-import com.chain.chainscrape.services.impl.EthScrapper;
+import com.chain.chainscrape.model.data.EthData;
+import com.chain.chainscrape.services.scrapper.AbstractScrapper;
+import com.chain.chainscrape.services.scrapper.EthScrapper;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.web3j.protocol.core.methods.response.EthBlock;
 
 /**
  * Service that manages the blockchain data retrieval through the respective IScrappers
  */
 @Slf4j
-@Component
+@Service
 public class BlockDataService {
     private final AbstractScrapper<EthData, EthBlock.Block> scrapperRunnable;
-    private  ScheduledExecutorService scheduledExecutorService;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     public BlockDataService(Provider provider) {
         this.scrapperRunnable = new EthScrapper(provider);
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         monitor();
     }
 
     public void monitor() {
-            scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
             scheduledExecutorService.scheduleAtFixedRate(scrapperRunnable, 0, 10, TimeUnit.SECONDS);
     }
 

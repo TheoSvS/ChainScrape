@@ -1,9 +1,9 @@
-package com.chain.chainscrape.model;
+package com.chain.chainscrape.model.data;
 
+import com.chain.chainscrape.model.Price;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.web3j.protocol.core.methods.response.EthBlock;
-import java.math.BigDecimal;
 
 /**
  * Holds heartbeat information for ethereum e.g. block data, price etc
