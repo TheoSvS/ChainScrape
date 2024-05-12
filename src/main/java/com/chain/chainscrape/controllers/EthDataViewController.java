@@ -37,6 +37,8 @@ public class EthDataViewController {
             double roundedGasFeeGwei = Math.round(gasFeeGwei * 10.0) / 10.0;
             model.addAttribute("gasGwei", roundedGasFeeGwei);
             model.addAttribute("usdPrice", ethData.getAssetPrice().price());
+            model.addAttribute("withdrawals", ethData.getTotalEthWithdrawals());
+            model.addAttribute("withdrawalsInSelectUnit", ethData.getTotalEthWithdrawalsInSelectedUnit());
         }
 
         return "homePage";

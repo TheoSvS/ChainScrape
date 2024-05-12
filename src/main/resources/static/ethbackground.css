@@ -1,7 +1,7 @@
 .eth-background {
     background-image: url('/images/ethblaze.gif');
     background-size: contain;  /*Adjust as needed (cover, contain, etc.) */
-    background-position: center;  /*Adjust as needed (center, top left, etc.) */
+    background-position: 70% 20%;  /*Adjust as needed (center, top left, etc.) */
     background-repeat: no-repeat;/* Prevent tiling */
     height: 100vh;  /*Set height to 100% viewport height */
     width: 100vw;  /*Set width to 100% viewport width */
@@ -17,6 +17,9 @@ body {
                 padding-left: 10;
                 padding-right: 10;
                 border-width: 12px; /* Adjust border thickness */
+                border: 10px solid white;
+                border-radius: 15px;
+                margin-bottom: 10px;
 }
 
 @font-face {
@@ -46,13 +49,14 @@ body {
   font-size: 154px;
   font-family: "Jersey 15", sans-serif;
   font-weight: 4;
-  font-style: normal;
+  font-style: italic;
 }
 
 .content {
   font-family: "Jersey 15", sans-serif;
   font-size: 25px;
   font-style: normal;
+  margin-left: 20px;
 }
 
 .values-style{

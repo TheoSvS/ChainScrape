@@ -7,6 +7,7 @@ import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.model.Price;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.stereotype.Component;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
+@Component
 public class EthScrapper extends AbstractScrapper<EthData, EthBlock.Block> {
     private final LinkedHashMap<Web3j,String> rpcServices = new LinkedHashMap<>();
 
@@ -111,7 +113,7 @@ public class EthScrapper extends AbstractScrapper<EthData, EthBlock.Block> {
      * @throws IOException
      */
     @Override
-    protected synchronized EthBlock.Block pollLatestBlock(Web3j web3jRPCservice) throws IOException {
+    protected EthBlock.Block pollLatestBlock(Web3j web3jRPCservice) throws IOException {
         long blockNumber = web3jRPCservice.ethBlockNumber().send().getBlockNumber().longValue(); // Latest block
         EthBlock.Block block = web3jRPCservice.ethGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.valueOf(blockNumber)), true).send().getBlock();
         return block;
