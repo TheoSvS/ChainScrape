@@ -2,6 +2,8 @@ package com.chain.chainscrape;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
@@ -11,6 +13,7 @@ import java.util.Properties;
 
 @Getter
 @Component
+@Slf4j
 public class Provider {
     private String INFURA_URL;
     private String ALCHEMY_URL;
@@ -18,11 +21,8 @@ public class Provider {
     @PostConstruct
     private void readProperties() {
         Properties prop = new Properties();
-        InputStream input = null;
 
-        try {
-            input = new FileInputStream("chain_infra_api_url.properties");
-
+        try (InputStream input = new FileInputStream("chain_infra_api_url.properties")) {
             // Load the properties file
             prop.load(input);
 
@@ -34,15 +34,7 @@ public class Provider {
             System.out.println("Infura URL: " + INFURA_URL);
             System.out.println("Alchemy URL: " + ALCHEMY_URL);
         } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            log.error("FAIL" + ex.getMessage(), ExceptionUtils.getStackTrace(ex));
         }
     }
 }
