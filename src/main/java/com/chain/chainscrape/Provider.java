@@ -22,7 +22,11 @@ public class Provider {
     private void readProperties() {
         Properties prop = new Properties();
 
-        try (InputStream input = new FileInputStream("chain_infra_api_url.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("chain_infra_api_url.properties")) {
+            if (input == null) {
+                log.error("Unable to find chain_infra_api_url.properties");
+                return;
+            }
             // Load the properties file
             prop.load(input);
 
@@ -30,11 +34,11 @@ public class Provider {
             INFURA_URL = prop.getProperty("eth_node_infra_provider_key");
             ALCHEMY_URL = prop.getProperty("alchemy_node_infra_provider_key");
 
-            // Print property values (optional)
-            System.out.println("Infura URL: " + INFURA_URL);
-            System.out.println("Alchemy URL: " + ALCHEMY_URL);
+            // Log property values
+            log.info("Infura URL: {}", INFURA_URL);
+            log.info("Alchemy URL: {}", ALCHEMY_URL);
         } catch (IOException ex) {
-            log.error("FAIL" + ex.getMessage(), ExceptionUtils.getStackTrace(ex));
+            log.error("Error loading properties file: {}", ex.getMessage(), ex);
         }
     }
 }

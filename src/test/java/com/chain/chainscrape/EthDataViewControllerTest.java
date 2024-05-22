@@ -45,6 +45,7 @@ public class EthDataViewControllerTest {
         mockBlock.setTimestamp(BigInteger.valueOf(1656579200).toString()); // Assuming a timestamp value
         mockBlock.setMiner("0xminerAddress");
         mockBlock.setTransactions(new ArrayList<>());
+        mockBlock.setWithdrawals(new ArrayList<>());
         mockBlock.getTransactions().add(new EthBlock.TransactionHash("txHash1"));
         mockBlock.getTransactions().add(new EthBlock.TransactionHash("txHash2"));
         mockBlock.setBaseFeePerGas(BigInteger.valueOf(1000000000).toString()); // 1000000000 wei

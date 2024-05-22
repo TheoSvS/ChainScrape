@@ -6,11 +6,14 @@ import com.chain.chainscrape.services.BlockDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Controller
+@RequestMapping("/")
 public class EthDataViewController {
     String appTitle;
     private final BlockDataService blockDataService;
@@ -20,7 +23,7 @@ public class EthDataViewController {
         this.appTitle = appConfig.getAppTitle();
     }
 
-    @GetMapping("/home")
+    @GetMapping("")
     public String homePage(Model model) {
         EthData ethData = blockDataService.getLatestEthData();
 
