@@ -1,11 +1,14 @@
 FROM maven:3.9.6 as maven
 LABEL APPLICATION="CHAIN SCRAPE"
+#Copy sources files and maven package build application
 WORKDIR /app
 COPY . /app
 RUN mvn clean package
 
 
 FROM openjdk:22-slim
+# Create a directory for logs
+RUN mkdir /logs
 WORKDIR /app
 # Copy the built jar from the Maven build stage
 COPY --from=maven /app/target/ChainScrape-0.0.1-SNAPSHOT.jar /app/ChainScrape-0.0.1-SNAPSHOT.jar
