@@ -15,7 +15,7 @@ import java.math.RoundingMode;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class EthData extends ChainData{
+public class EthData implements IChainData{
     private EthBlock.Block block;
     private Price assetPrice;
     private BigDecimal totalEthWithdrawals;

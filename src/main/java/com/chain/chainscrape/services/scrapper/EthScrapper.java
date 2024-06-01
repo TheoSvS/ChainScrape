@@ -1,6 +1,6 @@
 package com.chain.chainscrape.services.scrapper;
 
-import com.chain.chainscrape.Provider;
+import com.chain.chainscrape.RPCProvider;
 import com.chain.chainscrape.Utils;
 import com.chain.chainscrape.model.EPriceUnit;
 import com.chain.chainscrape.model.data.EthData;
@@ -37,9 +37,9 @@ public class EthScrapper extends AbstractScrapper<EthData, EthBlock.Block> {
     private final String CALLER_ADDRESS = "0x79cDA9334fDDd435e8a5B291C659fF9d4c8B8899"; //my CLBoot1 address
     private final String CHAINLINK_ETH_USD_PRICE_FEED_CONTRACT = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
 
-    public EthScrapper(Provider provider) {
-        rpcServices.put(Web3j.build(new HttpService(provider.getINFURA_URL())), "Infura");
-        rpcServices.put(Web3j.build(new HttpService(provider.getALCHEMY_URL())), "Alchemy");
+    public EthScrapper(RPCProvider RPCProvider) {
+        rpcServices.put(Web3j.build(new HttpService(RPCProvider.getINFURA_URL())), "Infura");
+        rpcServices.put(Web3j.build(new HttpService(RPCProvider.getALCHEMY_URL())), "Alchemy");
     }
 
     @Override

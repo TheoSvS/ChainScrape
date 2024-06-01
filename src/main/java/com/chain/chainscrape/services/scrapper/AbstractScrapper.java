@@ -1,7 +1,7 @@
 package com.chain.chainscrape.services.scrapper;
 
-import com.chain.chainscrape.model.data.ChainData;
 import com.chain.chainscrape.model.Price;
+import com.chain.chainscrape.model.data.IChainData;
 import com.chain.chainscrape.services.BlockDataService;
 import jakarta.annotation.PreDestroy;
 import org.web3j.protocol.Web3j;
@@ -9,7 +9,7 @@ import org.web3j.protocol.Web3j;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public abstract class AbstractScrapper<C extends ChainData ,B> implements Runnable {
+public abstract class AbstractScrapper<C extends IChainData, B> implements Runnable {
     protected volatile C latestCachedData;
     /**
      * Retrieves latest block from a blockchain.

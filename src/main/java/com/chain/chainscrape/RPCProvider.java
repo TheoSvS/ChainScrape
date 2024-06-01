@@ -3,10 +3,8 @@ package com.chain.chainscrape;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,7 +12,7 @@ import java.util.Properties;
 @Getter
 @Component
 @Slf4j
-public class Provider {
+public class RPCProvider {
     private String INFURA_URL;
     private String ALCHEMY_URL;
 

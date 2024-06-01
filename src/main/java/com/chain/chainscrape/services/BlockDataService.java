@@ -3,7 +3,7 @@ package com.chain.chainscrape.services;
 
 import java.util.concurrent.*;
 
-import com.chain.chainscrape.Provider;
+import com.chain.chainscrape.RPCProvider;
 import com.chain.chainscrape.model.data.EthData;
 import com.chain.chainscrape.services.scrapper.AbstractScrapper;
 import com.chain.chainscrape.services.scrapper.EthScrapper;
@@ -22,8 +22,8 @@ public class BlockDataService {
     private final AbstractScrapper<EthData, EthBlock.Block> scrapperRunnable;
     private final ScheduledExecutorService scheduledExecutorService;
 
-    public BlockDataService(Provider provider) {
-        this.scrapperRunnable = new EthScrapper(provider);
+    public BlockDataService(RPCProvider RPCProvider) {
+        this.scrapperRunnable = new EthScrapper(RPCProvider);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         monitor();
     }

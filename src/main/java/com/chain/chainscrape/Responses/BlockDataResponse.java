@@ -2,6 +2,7 @@ package com.chain.chainscrape.Responses;
 
 import com.chain.chainscrape.model.data.EthData;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -9,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class BlockDataResponse extends Response{
 
