@@ -55,10 +55,10 @@ public class EthDataViewControllerTest {
 
         // Execute the controller method
         Model model = new ExtendedModelMap();
-        String viewName = ethDataViewController.homePage(model);
+        String viewName = ethDataViewController.getBlockData(model);
 
         // Assertions
-        assertEquals("homePage", viewName);
+        assertEquals("blockDataFragment :: blockData", viewName);
         Map<String, Object> modelAttributes = model.asMap();
         assertEquals(BigInteger.valueOf(12345), modelAttributes.get("blockNum"));
         assertEquals("0x1234567890abcdef", modelAttributes.get("blockHash"));
