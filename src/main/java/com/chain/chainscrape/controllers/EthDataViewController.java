@@ -25,10 +25,16 @@ public class EthDataViewController {
 
     @GetMapping("")
     public String homePage(Model model) {
+        return "homePage";
+    }
+
+    @GetMapping("/blockdatafragment")
+    public String getBlockData(Model model) {
+        model.addAttribute("homePageTitle", appTitle);
+
         EthData ethData = blockDataService.getLatestEthData();
 
-        model.addAttribute("homePageTitle", appTitle);
-        if(ethData!=null) {
+        if (ethData != null) {
             long timestamp = ethData.getBlock().getTimestamp().longValue();
             String dateReadable = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).toString();
             model.addAttribute("blockNum", ethData.getBlock().getNumber());
@@ -44,6 +50,6 @@ public class EthDataViewController {
             model.addAttribute("withdrawalsInSelectUnit", ethData.getTotalEthWithdrawalsInSelectedUnit());
         }
 
-        return "homePage";
+        return "blockDataFragment :: blockData";
     }
 }
