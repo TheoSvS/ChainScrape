@@ -1,7 +1,12 @@
+:root {
+    --border-padding-left-right: 10px;
+    --content-margin-left-right: 20px;
+}
+
 .eth-background {
     background-image: url('/images/ethblaze.gif');
     background-size: contain;  /*Adjust as needed (cover, contain, etc.) */
-    background-position: 70% 20%;  /*Adjust as needed (center, top left, etc.) */
+    background-position: 80% 20%;  /*Adjust as needed (center, top left, etc.) */
     background-repeat: no-repeat;/* Prevent tiling */
     height: 100vh;  /*Set height to 100% viewport height */
     width: 100vw;  /*Set width to 100% viewport width */
@@ -9,13 +14,13 @@
 
 body {
     background-color: rgba(21, 20, 19,1);
-    color: green;
+    color: rgba(249, 33, 178,1);
 }
 
 .border.border-white.rounded {
     width: fit-content;
-                padding-left: 10;
-                padding-right: 10;
+                padding-left: var(--border-padding-left-right);
+                padding-right: var(--border-padding-left-right);
                 border-width: 12px; /* Adjust border thickness */
                 border: 10px solid white;
                 border-radius: 15px;
@@ -47,18 +52,24 @@ body {
 
 .title {
   font-size: 154px;
-  font-family: "Jersey 15", sans-serif;
-  font-weight: 4;
+  font-family: "Modak", sans-serif;
+  font-weight: 400;
   font-style: italic;
+  margin-bottom: 50px;
 }
 
 .content {
-  font-family: "Jersey 15", sans-serif;
+  font-family: "Spicy Rice", sans-serif;
   font-size: 25px;
   font-style: normal;
-  margin-left: 20px;
+  margin-left: var(--content-margin-left-right);
 }
 
 .values-style{
   color: white; /*replace only the coloring*/
+}
+
+.player-container {
+  margin-top: 20px;
+  margin-left: calc(var(--border-padding-left-right) + var(--content-margin-left-right));
 }
