@@ -73,3 +73,22 @@ body {
   margin-top: 20px;
   margin-left: calc(var(--border-padding-left-right) + var(--content-margin-left-right));
 }
+
+@media only screen and (max-width: 767px) {
+    .player-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        background-color: rgba(21, 20, 19, 0.9);
+    }
+
+    .player-container iframe {
+        width: 100%;
+        height: auto;
+    }
+}
