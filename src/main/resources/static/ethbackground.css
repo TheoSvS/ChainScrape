@@ -3,6 +3,12 @@
     --content-margin-left-right: 20px;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .eth-background {
     background-image: url('/images/ethblaze.gif');
     background-size: contain;  /*Adjust as needed (cover, contain, etc.) */
@@ -10,19 +16,16 @@
     background-repeat: no-repeat;/* Prevent tiling */
     height: 100vh;  /*Set height to 100% viewport height */
     width: 100vw;  /*Set width to 100% viewport width */
-}
-
-body {
     background-color: rgba(21, 20, 19,1);
     color: rgba(249, 33, 178,1);
 }
+
 
 .border.border-white.rounded {
     width: fit-content;
                 padding-left: var(--border-padding-left-right);
                 padding-right: var(--border-padding-left-right);
-                border-width: 12px; /* Adjust border thickness */
-                border: 10px solid white;
+                border: 4px solid white;
                 border-radius: 15px;
                 margin-bottom: 10px;
 }
@@ -43,12 +46,6 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
-/*.title {
-    font-size: 64px;
-    font-family: RetroFont, sans-serif;
-    margin-bottom: 100px;
-    font-style: normal;
-}*/
 
 .title {
   font-size: 154px;
@@ -75,6 +72,22 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
+
+.eth-background {
+    background-image: url('/images/ethblaze.gif');
+    background-size: contain;  /*Adjust as needed (cover, contain, etc.) */
+    background-position: 10% 90%;  /*Adjust as needed (center, top left, etc.) */
+    background-repeat: no-repeat;/* Prevent tiling */
+    height: 100vh;  /*Set height to 100% viewport height */
+    width: 100vw;  /*Set width to 100% viewport width */
+}
+
+   .content {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     .player-container {
         position: fixed;
         bottom: 0;
