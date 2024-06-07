@@ -8,11 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Aladin&family=Spicy+Rice&family=Modak&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{/ethbackground.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/homePage.css}"/>
 </head>
 
+
 <body class="eth-background">
-<div hx-get="/blockdatafragment" hx-trigger="load, every 10s" hx-swap="innerHTML" class="container text-left">
+<h1 class="title" th:text="${homePageTitle}"></h1>
+<div hx-get="/blockdatafragment" hx-trigger="load, every 10s" hx-swap="innerHTML" style="text-align: left">
     <div id="blockData">
         <div th:replace="~{blockDataFragment :: blockData}"></div>
     </div>
@@ -30,5 +32,6 @@
             allowfullscreen>
     </iframe>
 </div>
+<img src="/images/ethblaze.gif" alt="Donut" class="spin-eth">
 </body>
 </html>

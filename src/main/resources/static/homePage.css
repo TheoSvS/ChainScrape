@@ -1,0 +1,111 @@
+* {margin: 0; padding: 0;} /*remove any margin and padding applied initially*/
+
+:root {
+    --border-padding-left-right: 0.3vw;
+    --content-margin-left-right: 0.6vw;
+    color: rgba(249, 33, 178,1);
+}
+
+.eth-background {
+    background-color: rgba(21, 20, 19,1);
+}
+
+.spin-eth {
+    position: fixed; /* Position the image fixed relative to the viewport */
+    top: 50%; /* Center vertically */
+    right: 16vw; /* Position from the right */
+    transform: translateY(-50%); /* Adjust for exact centering */
+    width: 30vw;
+    height: auto; /* Maintain aspect ratio */
+    z-index: -1; /*Set behind other elements*/
+}
+
+
+.border.border-white.rounded {
+    width: fit-content;
+                padding-left: var(--border-padding-left-right);
+                padding-right: var(--border-padding-left-right);
+                border: 0.3vh solid white;
+                border-radius: 1vh;
+                margin-bottom: 0px;
+}
+
+.title {
+  font-size: 154px;
+  font-family: "Modak", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  margin-bottom: 3vh;
+  padding-bottom: 0px;
+  line-height: 17vh; /*Control the line height of the font that is kinda beefy*/
+}
+
+.fragment-style {
+  font-family: "Spicy Rice", sans-serif;
+  font-style: normal;
+  margin-top: 1vh;
+  margin-left: var(--content-margin-left-right);
+}
+
+.fragment-title {
+    width: 100vw;
+    font-size: 2.5vw;
+}
+
+.fragment-contents {
+    font-size: 1.36vw;
+}
+
+.values-style{
+  color: white; /*replace only the coloring*/
+}
+
+.player-container {
+  margin-top: 2vh;
+  margin-left: calc(var(--border-padding-left-right) + var(--content-margin-left-right));
+}
+
+@media only screen and (max-width: 767px) {
+
+    .spin-eth {
+        position: absolute; /* Position the image fixed relative to the viewport */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust for exact centering */
+        width: 40vw;
+        height: auto; /* Maintain aspect ratio */
+        z-index: -1; /*Set behind other elements*/
+    }
+
+    .title {
+        width: 100vw;
+        font-size: 17vw;
+        line-height: 12vh;
+    }
+
+    .fragment-title {
+        width: 100vw;
+        font-size: 7vw;
+    }
+
+    .fragment-contents {
+        font-size: 2.66vw;
+    }
+
+    .player-container {
+        position: fixed;
+        margin-left: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        background-color: rgba(21, 20, 19, 0.9);
+    }
+
+    .player-container iframe {
+        width: 100%;
+        height: auto;
+    }
+}

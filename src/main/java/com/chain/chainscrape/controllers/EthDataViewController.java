@@ -25,13 +25,12 @@ public class EthDataViewController {
 
     @GetMapping("")
     public String homePage(Model model) {
+        model.addAttribute("homePageTitle", appTitle);
         return "homePage";
     }
 
     @GetMapping("/blockdatafragment")
     public String getBlockData(Model model) {
-        model.addAttribute("homePageTitle", appTitle);
-
         EthData ethData = blockDataService.getLatestEthData();
 
         if (ethData != null) {
