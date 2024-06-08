@@ -4,10 +4,10 @@ It leverages the Web3j library that wraps smart contracts written in Solidity la
 
 It communicates with the Ethereum blockchain nodes through RPC service providers (INFURA and Alchemy) and aggregates the data of the latest Ethereum block. 
 
-It also leverages Chainlink smart contracts and makes calls to collect the Ethereum price from their on-Chain data oracles (for a blockchain the only truth is on-chain!) 
+It also leverages Chainlink smart contracts and makes calls to collect the Ethereum price from their on-Chain data oracles (for a blockchain the only truth is onchain!) 
 
-To deploy the application you need to provide an ethereum node infrastructure RPCProvider API key (RPC like INFURA) inside chain_infra_api_url.properties.
+Application at http://68.183.214.175:8080/
 
-Then you can run the application and find it at http://localhost:8080/ 
+To deploy the application yourself first need to provide an ethereum node infrastructure RPCProvider API key (RPC like INFURA) inside chain_infra_api_url.properties.
 
-You can also deploy the containerized application simply by running: docker compose up --build 
+You can also deploy the application in a docker container by running: docker compose up --build 
