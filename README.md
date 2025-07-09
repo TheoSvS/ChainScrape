@@ -8,7 +8,7 @@ It communicates with the Ethereum blockchain nodes through RPC service providers
 
 It also leverages Chainlink smart contracts and makes calls to collect the Ethereum price from their on-Chain data oracles (for a blockchain the only truth is onchain!) 
 
-Application at http://68.183.214.175:8080/
+Application at http://46.102.156.149:8080/
 
 To deploy the application yourself, you first need to provide an ethereum node infrastructure RPCProvider API key (RPC like INFURA) inside chain_infra_api_url.properties.
 
